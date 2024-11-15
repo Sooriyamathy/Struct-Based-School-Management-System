@@ -13,6 +13,8 @@ student* createstudent()
     scanf("%s",newstudent->student_name);
     printf("\nEnter the student id: ");
     scanf("%d",&newstudent->student_id);
+    printf("\nEnter the student grade");
+    scanf("%d",&newstudent->mark);
     return newstudent;
 }
 course* createcourse()
@@ -29,7 +31,14 @@ course* createcourse()
         student* tempschool=createstudent();
         newcourse->enrolled_list[i].student_id=tempschool->student_id;
         strcpy(newcourse->enrolled_list[i].student_name,tempschool->student_name);
+        newcourse->enrolled_list[i].mark=tempschool->mark;
     }
+    float tempgrade=0.0;
+    for(int i=0;i<newcourse->student_count;i++)
+    {
+        tempgrade+=newcourse->enrolled_list[i].mark;
+    }
+    newcourse->average_grade=(tempgrade/newcourse->student_count);
     return newcourse;
 }
 school* createschool()
@@ -48,13 +57,23 @@ school* createschool()
     }
     return newschool;
 }
-printcoursedetails(course* a,int num)
+void printcoursedetails(course* a,int num)
 {
     for(int i=0;i<num;i++)
     {
         printf("the course #%d details:\n",i+1);
         printf("Name: %s\n",a[i].course_name);
         printf("number of students enrolled: %d\n",a[i].student_count);
+        printf("The average grade is %f\n",a[i].average_grade);
+    }
+}
+void printstudentdetails(student* a,int num)
+{
+    for(int i=0;i<num;i++)
+    {
+        printf("The student name is %s",a[i].student_name);
+        printf("\nThe student id is %d",a[i].student_id);
+        printf("\nThe grade of the student is %d",a[i].mark);
     }
 }
 int main() {
@@ -95,6 +114,7 @@ int main() {
             case 2:
                 // Call function to create a course
                 b=createcourse();
+                printf("\nthe average grade is %f",b->average_grade);
                 //printf("Create a Course function\n");
                 break;
             case 3:
@@ -104,7 +124,11 @@ int main() {
                 break;
             case 4:
                 // Call function to print student details
-               // printstudentdetails();
+                for(int i=0;i<(a->num_courses);i++)
+                {
+                        printstudentdetails(a->courses_offered[i].enrolled_list,a->courses_offered[i].student_count);
+                }
+                
                 printf("Print Student Details function\n");
                 break;
             case 5:

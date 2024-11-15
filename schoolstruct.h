@@ -4,6 +4,7 @@ typedef struct student_struct
 {
     char student_name[30];
     int student_id;
+    int mark;
 }student;
 typedef struct course_struct
 {
