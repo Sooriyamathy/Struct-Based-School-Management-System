@@ -138,7 +138,20 @@ int main() {
                 break;
             case 6:
                 // Call function to print school details
-                printf("Print School Details function\n");
+                printf("\nThe school name is %s\n",a->school_name);
+                printf("The courses offered are :\n");
+                for(int i=0;i<a->num_courses;i++)
+                {
+                    printf("#%d:%s\n",i+1,a->courses_offered[i].course_name);
+                }
+                printf("\nThe students in the school are:\n");
+                for(int i=0;i<a->num_courses;i++)
+                {
+                    for(int j=0;j<a->courses_offered[i].student_count;j++)
+                    {
+                        printf("#%s\n",a->courses_offered[i].enrolled_list[j].student_name);
+                    }
+                }
                 break;
             case 7:
                 // Call function to check if student is in course
