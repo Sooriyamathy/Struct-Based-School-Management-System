@@ -17,6 +17,7 @@ void printcoursesaboveaverage(course *c, int num, float threshold);
 void printcoursesbelowaverage(course *c, int num, float threshold);
 void printaverageacrosscourses(course *c, int num);
 void printcoursehighestaverage(course *c, int num);
+void free_memory(school *a);
 
 int main() {
     school *a = NULL;
@@ -147,7 +148,8 @@ int main() {
                 }
                 break;
             case 0:
-                printf("Exiting the program...\n");
+                free_memory(a);  // Free the allocated memory before exiting
+                printf("Memory freed. Exiting the program...\n");
                 break;
             default:
                 printf("Invalid choice! Please enter a number between 0 and 15.\n");
@@ -309,4 +311,17 @@ void printcoursehighestaverage(course *c, int num) {
         }
     }
     printf("Course with the highest average grade: %s (%.2f)\n", c[index].course_name, c[index].average_grade);
+}
+// Free function to deallocate all dynamically allocated memory
+void free_memory(school *a) {
+    if (a != NULL) {
+        // Free each course's enrolled student list
+        for (int i = 0; i < a->num_courses; i++) {
+            free(a->courses_offered[i].enrolled_list);
+        }
+        // Free the courses array
+        free(a->courses_offered);
+        // Free the school object itself
+        free(a);
+    }
 }
